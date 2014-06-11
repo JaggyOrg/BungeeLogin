@@ -51,8 +51,25 @@
       <version>0.0.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>net.md-5</groupId>
+      <artifactId>bungeecord-api</artifactId>
+      <version>1.7-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    
   </dependencies>
-   <scm>
+  <repositories>
+    <repository>
+        <id>bungeecord</id>
+        <name>BungeeCord API</name>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <url>https://oss.sonatype.org/content/groups/public/</url>
+    </repository>
+  </repositories>   
+  <scm>
 	<connection>scm:git:git@github.com:JaggyOrg/BungeeLogin.git</connection>
 	<url>scm:git:git@github.com:JaggyOrg/BungeeLogin.git</url>
 	<developerConnection>scm:git:git@github.com:JaggyOrg/BungeeLogin.git</developerConnection>

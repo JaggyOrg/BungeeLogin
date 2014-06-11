@@ -12,6 +12,9 @@ import net.md_5.bungee.api.plugin.Plugin;
  *
  * @author Matthew
  */
-public class BungeeLogin {
-    
+public class BungeeLogin extends Plugin {
+    @Override
+    public void onEnable() {
+        
+    }
 }
