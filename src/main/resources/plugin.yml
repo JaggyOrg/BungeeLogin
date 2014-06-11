@@ -1,0 +1,4 @@
+name: BungeeLogin
+main: org.jaggy.bungeelogin.BungeeLogin
+author: JaggyOrg
+version: 0.1-SNAPSHOT
