@@ -6,10 +6,6 @@
 
 package org.jaggy.bungeelogin.config;
 
-import java.io.File;
-import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-
 /**
  *
  * @author Matthew
@@ -36,4 +32,64 @@ public interface YAMLConfig {
      * Saves the loaded config file
      */
     public void saveConfig();
+    /**
+     * Gets Online mode
+     *  @return OnlineMode
+     */
+    public boolean getOnlineMode();
+    /**
+     * Gets Auth Type: Mysql, xAuth
+     * @return AuthType
+     */
+    public String getAuthType();
+    /**
+     * Gets Mysql DB Name
+     * @return MysqlDbName
+     */
+    public String getMysqlDbName();
+    /**
+     * Gets Mysql Username
+     * @return MysqlUsername
+     */
+    public String getMysqlUsername();
+    /**
+     * Gets Mysql Username
+     * @return MysqlPassword
+     */
+    public String getMysqlPassword();
+    /**
+     * Gets Mysql Host
+     * @return MysqlHost
+     */
+    public String getMysqlHost();
+    /**
+     * Gets Mysql Port
+     * @return MysqlPort
+     */
+    public Integer getMysqlPort();
+    /**
+     * Gets Username Field to query
+     * @return UsernameField
+     */
+    public String getUsernameField();
+    /**
+     * Gets Password Field to query
+     * @return PasswordField
+     */
+    public String getPasswordField();
+    /**
+     * Gets Password Hash Type
+     * @return PasswordType
+     */
+    public String getPasswordType();
+    /**
+     * Gets Server Token used in authentication like in xAuth
+     * @return ServerToken
+     */
+    public String getServerToken();
+    /**
+     * Gets Auth URL used in authentication like in xAuth
+     * @return PasswordType
+     */
+    public String getAuthURL();
 }

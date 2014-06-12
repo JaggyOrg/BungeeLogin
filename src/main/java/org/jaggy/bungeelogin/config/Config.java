@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
 import org.jaggy.bungeelogin.BungeeLogin;
 
 /**
@@ -34,14 +35,30 @@ public class Config implements YAMLConfig {
         if(!cFolder.exists()) {
             cFolder.mkdir();
         }
-        if(cFile.exists()) {
-            
+        if(!cFile.exists()) {
+            try {
+                cFile.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+         // This requests the ConfigurationProvider that Bungee uses
+    cProvider = ConfigurationProvider.getProvider(YamlConfiguration.class);
+    try {
+        config = cProvider.load(cFile);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
     }
 
     @Override
     public void saveConfig() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            cProvider.save(config, cFile);
+        } catch (IOException ex) {
+            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -82,5 +99,65 @@ public class Config implements YAMLConfig {
             }
             
         }
+    }
+
+    @Override
+    public boolean getOnlineMode() {
+        return config.getBoolean("onlineMode");
+    }
+
+    @Override
+    public String getAuthType() {
+        return config.getString("AuthType");
+    }
+
+    @Override
+    public String getMysqlDbName() {
+        return config.getString("MysqlDbName");
+    }
+
+    @Override
+    public String getMysqlUsername() {
+        return config.getString("MysqlUserName");
+    }
+
+    @Override
+    public String getMysqlPassword() {
+        return config.getString("MysqlPassword");
+    }
+
+    @Override
+    public String getMysqlHost() {
+        return config.getString("MysqlHost");
+    }
+
+    @Override
+    public Integer getMysqlPort() {
+        return config.getInt("MysqlPort");
+    }
+
+    @Override
+    public String getUsernameField() {
+        return config.getString("UsernameField");
+    }
+
+    @Override
+    public String getPasswordField() {
+        return config.getString("PasswordField");
+    }
+
+    @Override
+    public String getPasswordType() {
+        return config.getString("PasswordType");
+    }
+
+    @Override
+    public String getServerToken() {
+        return config.getString("ServerToken");
+    }
+
+    @Override
+    public String getAuthURL() {
+        return config.getString("AuthURL");
     }
 }
