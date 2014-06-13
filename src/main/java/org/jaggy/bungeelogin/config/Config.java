@@ -58,6 +58,7 @@ public class Config implements YAMLConfig {
             } catch (IOException ex) {
                 Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
         }
    
     }

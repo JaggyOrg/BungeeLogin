@@ -13,6 +13,7 @@ import org.jaggy.bungeelogin.events.PlayerChat;
 import org.jaggy.bungeelogin.events.PlayerPostLogin;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.jaggy.bungeelogin.config.Config;
+import org.jaggy.bungeelogin.utils.Utils;
 
 /**
  *
@@ -21,13 +22,14 @@ import org.jaggy.bungeelogin.config.Config;
 public class BungeeLogin extends Plugin {
     public Config config;
     public Logger log;
-    
+    public Utils utils;
     @Override
     public void onEnable() {
         log = this.getLogger();
         config = new Config(this, "config.yml");
+        utils = new Utils(this);
                 
-        this.getProxy().getPluginManager().registerListener(this, new PlayerPostLogin());
+        this.getProxy().getPluginManager().registerListener(this, new PlayerPostLogin(this));
         this.getProxy().getPluginManager().registerListener(this, new PlayerChat(this));
         
     }

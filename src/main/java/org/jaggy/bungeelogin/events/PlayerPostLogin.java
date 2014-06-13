@@ -10,16 +10,23 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import org.jaggy.bungeelogin.BungeeLogin;
 
 /**
  *
  * @author Matthew
  */
 public class PlayerPostLogin implements Listener {
-    public PlayerPostLogin() {
+    private final BungeeLogin plugin;
+    public PlayerPostLogin(BungeeLogin lplugin) {
+        plugin = lplugin;
     }
     @EventHandler
     public void onPostLogin(PostLoginEvent event) {
         ProxiedPlayer player = event.getPlayer();
+        boolean loggedin = false;
+        if(loggedin == false) {
+            plugin.utils.sendNotLoginMsg(player);
+        }
     }
 }

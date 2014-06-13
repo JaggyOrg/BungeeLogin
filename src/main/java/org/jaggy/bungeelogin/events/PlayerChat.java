@@ -30,14 +30,8 @@ public class PlayerChat implements Listener {
     @EventHandler
     public void onPlayerChat(ChatEvent event) {
         ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-        if(loggedin == true) {
-            
-        } else {
-            if(plugin.config.getOnlineMode()) {
-                plugin.sendError(player, "You must /register to be able to chat.");
-            } else {
-                plugin.sendError(player, "You must /login or /register to be able to chat.");
-            }
+        if(loggedin == false) {
+            plugin.utils.sendNotLoginMsg(player);
             event.setCancelled(true);
         }
     }
