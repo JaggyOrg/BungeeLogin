@@ -20,8 +20,12 @@ public class PlayerChat implements Listener {
     private final boolean loggedin = false;
     private final BungeeLogin plugin;
 
-    public PlayerChat() {
-       plugin = new BungeeLogin();
+    /**
+     * Intitializes playerchat listener
+     * @param lplugin
+     */
+    public PlayerChat(BungeeLogin lplugin) {
+       plugin = lplugin;
     }
     @EventHandler
     public void onPlayerChat(ChatEvent event) {
@@ -29,8 +33,12 @@ public class PlayerChat implements Listener {
         if(loggedin == true) {
             
         } else {
+            if(plugin.config.getOnlineMode()) {
+                plugin.sendError(player, "You must /register to be able to chat.");
+            } else {
+                plugin.sendError(player, "You must /login or /register to be able to chat.");
+            }
             event.setCancelled(true);
-            plugin.sendError(player, "You must /login or /register to be able to chat.");
         }
     }
 }

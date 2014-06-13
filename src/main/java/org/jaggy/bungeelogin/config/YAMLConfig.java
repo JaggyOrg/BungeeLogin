@@ -16,6 +16,7 @@ public interface YAMLConfig {
      * @param file 
      */
     public void loadConfig(String file);
+    public void loadConfig();
 
     /**
      * Creates an empty config file.
@@ -36,7 +37,7 @@ public interface YAMLConfig {
      * Gets Online mode
      *  @return OnlineMode
      */
-    public boolean getOnlineMode();
+    public Boolean getOnlineMode();
     /**
      * Gets Auth Type: Mysql, xAuth
      * @return AuthType

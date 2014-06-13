@@ -22,16 +22,33 @@ import org.jaggy.bungeelogin.BungeeLogin;
  * @author Matthew
  */
 public class Config implements YAMLConfig {
-    public static Configuration            config;
-    public static ConfigurationProvider    cProvider;
-    public static File                    cFile;
-    private final BungeeLogin plugin = new BungeeLogin();
-    private File cFolder;
 
-    @Override
-    public void loadConfig(String file) {
+    /**
+     * config stored in memory
+     */
+    public static Configuration    lconfig;
+    public File                    cFile;
+    private final BungeeLogin plugin;
+    private static File cFolder;
+
+
+    /**
+     * Initialize Config Class
+     * @param lplugin
+     * @param file
+     */
+    public Config(BungeeLogin lplugin, String file) {
+        plugin = lplugin;
         cFolder = plugin.getDataFolder();
         cFile = new File(cFolder.toString()+ File.separator + file);
+        try {
+        lconfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(cFile);
+        } catch (IOException e) {
+        }
+    }
+    @Override
+        public void loadConfig() {
+        
         if(!cFolder.exists()) {
             cFolder.mkdir();
         }
@@ -42,22 +59,17 @@ public class Config implements YAMLConfig {
                 Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-         // This requests the ConfigurationProvider that Bungee uses
-    cProvider = ConfigurationProvider.getProvider(YamlConfiguration.class);
-    try {
-        config = cProvider.load(cFile);
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
+   
     }
 
     @Override
     public void saveConfig() {
-        try {
-            cProvider.save(config, cFile);
+        try
+        {
+            FileWriter writer = new FileWriter( cFile.toString());
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save( lconfig, writer );
         } catch (IOException ex) {
-            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+            plugin.log.severe(cFile.toString());
         }
     }
 
@@ -102,62 +114,69 @@ public class Config implements YAMLConfig {
     }
 
     @Override
-    public boolean getOnlineMode() {
-        return config.getBoolean("onlineMode");
+    public Boolean getOnlineMode() {
+        boolean value;
+        value = lconfig.getBoolean("onlineMode", true);
+        return value;
     }
 
     @Override
     public String getAuthType() {
-        return config.getString("AuthType");
+        return lconfig.getString("AuthType", "xAuth");
     }
 
     @Override
     public String getMysqlDbName() {
-        return config.getString("MysqlDbName");
+        return lconfig.getString("MysqlDbName", "bungecord");
     }
 
     @Override
     public String getMysqlUsername() {
-        return config.getString("MysqlUserName");
+        return lconfig.getString("MysqlUserName", "root");
     }
 
     @Override
     public String getMysqlPassword() {
-        return config.getString("MysqlPassword");
+        return lconfig.getString("MysqlPassword", "");
     }
 
     @Override
     public String getMysqlHost() {
-        return config.getString("MysqlHost");
+        return lconfig.getString("MysqlHost", "localhost");
     }
 
     @Override
     public Integer getMysqlPort() {
-        return config.getInt("MysqlPort");
+        return lconfig.getInt("MysqlPort", 3306);
     }
 
     @Override
     public String getUsernameField() {
-        return config.getString("UsernameField");
+        return lconfig.getString("UsernameField", "username");
     }
 
     @Override
     public String getPasswordField() {
-        return config.getString("PasswordField");
+        return lconfig.getString("PasswordField", "password");
     }
 
     @Override
     public String getPasswordType() {
-        return config.getString("PasswordType");
+        return lconfig.getString("PasswordType", "");
     }
 
     @Override
     public String getServerToken() {
-        return config.getString("ServerToken");
+        return lconfig.getString("ServerToken", "");
     }
 
     @Override
     public String getAuthURL() {
-        return config.getString("AuthURL");
+        return lconfig.getString("AuthURL", "");
+    }
+
+    @Override
+    public void loadConfig(String file) {
+        lconfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
     }
 }
