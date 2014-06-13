@@ -26,7 +26,7 @@ public class PlayerPostLogin implements Listener {
         ProxiedPlayer player = event.getPlayer();
         boolean loggedin = false;
         if(loggedin == false) {
-            plugin.utils.sendNotLoginMsg(player);
+            plugin.utils.Messages.sendNotLoginMsg(player);
         }
     }
 }

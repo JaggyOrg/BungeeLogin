@@ -14,24 +14,29 @@ import org.jaggy.bungeelogin.BungeeLogin;
  * @author Matthew
  */
 public class Utils {
-    private final BungeeLogin plugin;
+    public final BungeeLogin plugin;
+    public Messages Messages = new Messages();
 
     public Utils(BungeeLogin lplugin) {
         plugin = lplugin;
     }
-    public void sendNotLoginMsg(ProxiedPlayer player) {
-        if(plugin.config.getOnlineMode()) {
-            if(plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
-                plugin.sendError(player, "You must /register to be able to use our service.");
+    public class Messages {
+
+        public void sendNotLoginMsg(ProxiedPlayer player) {
+            if (plugin.config.getOnlineMode()) {
+                if (plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
+                    plugin.sendError(player, "You must /register to be able to use our service.");
+                } else {
+                    plugin.sendError(player, "This server is linked to a website and you must /register to be able to use our service.");
+                }
             } else {
-                plugin.sendError(player, "This server is linked to a website and you must /register to be able to use our service.");
-            }
-        } else {
-            if(plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
-                plugin.sendError(player, "You must /login or /register to be able to use our service.");
-            } else {
-                plugin.sendError(player, "You must /login or /register to be able to use our service.");
+                if (plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
+                    plugin.sendError(player, "You must /login or /register to be able to use our service.");
+                } else {
+                    plugin.sendError(player, "You must /login or /register to be able to use our service.");
+                }
             }
         }
     }
 }
+
