@@ -31,8 +31,17 @@ public class PlayerChat implements Listener {
     public void onPlayerChat(ChatEvent event) {
         ProxiedPlayer player = (ProxiedPlayer) event.getSender();
         if(loggedin == false) {
-            plugin.utils.sendNotLoginMsg(player);
-            event.setCancelled(true);
+            if(event.isCommand()) {
+                if(!player.hasPermission("bungeelogin.usecommands")) {
+                    plugin.utils.sendNotLoginMsg(player);
+                    event.setCancelled(true);
+                }
+            } else {
+                if(!player.hasPermission("bungeelogin.canchat")) {
+                    plugin.utils.sendNotLoginMsg(player);
+                    event.setCancelled(true);
+                }
+            }
         }
     }
 }
