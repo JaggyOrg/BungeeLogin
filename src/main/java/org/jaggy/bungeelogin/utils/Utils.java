@@ -6,6 +6,11 @@
 
 package org.jaggy.bungeelogin.utils;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jaggy.bungeelogin.BungeeLogin;
 
@@ -16,6 +21,7 @@ import org.jaggy.bungeelogin.BungeeLogin;
 public class Utils {
     public final BungeeLogin plugin;
     public Messages Messages = new Messages();
+    public Database DB = new Database();
 
     public Utils(BungeeLogin lplugin) {
         plugin = lplugin;
@@ -34,6 +40,19 @@ public class Utils {
                     plugin.sendError(player, "You must /login or /register to be able to use our service.");
                 } else {
                     plugin.sendError(player, "You must /login or /register to be able to use our service.");
+                }
+            }
+        }
+    }
+    public class Database {
+        public void connect() {
+            if(plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
+                String connectionstr = "jdbc:mysql://"+plugin.config.getMysqlHost()+":"+plugin.config.getMysqlPort()+"/"+
+                        plugin.config.getMysqlDbName()+"?" + "user="+plugin.config.getMysqlUsername()+"&password="+plugin.config.getMysqlPassword();
+                try {
+                    Connection connection = DriverManager.getConnection(connectionstr);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
