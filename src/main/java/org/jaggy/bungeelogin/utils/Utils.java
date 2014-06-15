@@ -6,6 +6,7 @@
 
 package org.jaggy.bungeelogin.utils;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -78,16 +79,45 @@ public class Utils {
             }
         }
         
-        public void createTable(String table) {
+        public void createTable(String table, TableStruct struct) {
             Statement stmt;
             try {
+                
                 stmt = connection.createStatement();
-                boolean execute = stmt.execute("CREATE TABLE "+table+" ");
+                stmt.execute("CREATE TABLE "+table+" ");
                 stmt.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
+        }
+        public class Field {
+            String name;
+            String type;
+            int size;
+            /**
+             * Defines a field to use later.
+             * 
+             * @param namestr name of the field
+             * @param typestr type of mysql field
+             * @param sizeint int size of the field
+             */
+            Field(String namestr, String typestr, int sizeint) {
+                name = namestr;
+                type = typestr;
+                size = sizeint;
+            }
+        }
+
+        public class TableStruct {
+            Array fields;
+            /**
+             * TableStruct datatype is an array object in general recommended use
+             * with Field datatype.
+             * @param objList 
+             */
+            TableStruct(Object objList) {
+                fields = (Array) objList;
+            }
         }
     }
 }
