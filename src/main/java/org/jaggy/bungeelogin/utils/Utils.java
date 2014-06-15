@@ -8,7 +8,9 @@ package org.jaggy.bungeelogin.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -45,16 +47,47 @@ public class Utils {
         }
     }
     public class Database {
+        Connection connection;
         public void connect() {
             if(plugin.config.getAuthType().equalsIgnoreCase("mysql")) {
                 String connectionstr = "jdbc:mysql://"+plugin.config.getMysqlHost()+":"+plugin.config.getMysqlPort()+"/"+
                         plugin.config.getMysqlDbName()+"?" + "user="+plugin.config.getMysqlUsername()+"&password="+plugin.config.getMysqlPassword();
                 try {
-                    Connection connection = DriverManager.getConnection(connectionstr);
+                    connection = DriverManager.getConnection(connectionstr);
                 } catch (SQLException ex) {
                     Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+        public ResultSet query(String str) {
+            ResultSet result = null;
+            try {
+                Statement stmt = connection.createStatement();
+                result = stmt.executeQuery(str);
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return result;    
+        }
+        public void closeConnection() {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        public void createTable(String table) {
+            Statement stmt;
+            try {
+                stmt = connection.createStatement();
+                boolean execute = stmt.execute("CREATE TABLE "+table+" ");
+                stmt.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
         }
     }
 }
