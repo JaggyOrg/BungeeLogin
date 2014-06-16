@@ -17,12 +17,6 @@ public interface YAMLConfig {
      */
     public void loadConfig(String file);
     public void loadConfig();
-
-    /**
-     * Creates an empty config file.
-     * @param file
-     */
-    public void createConfig(String file);
     /**
      * Creates a config file with data.
      * @param file
