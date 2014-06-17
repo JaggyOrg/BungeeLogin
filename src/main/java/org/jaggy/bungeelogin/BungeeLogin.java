@@ -12,6 +12,7 @@ import java.nio.CharBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jaggy.bungeelogin.events.PlayerChat;
@@ -39,9 +40,12 @@ public class BungeeLogin extends Plugin {
     public void onEnable() {
         this.getProxy().getPluginManager().registerListener(this, new PlayerPostLogin(this));
         this.getProxy().getPluginManager().registerListener(this, new PlayerChat(this));
+        this.getProxy().getPluginManager().registerCommand(this, new cmdRegister(this));
+        
+        
         if(!config.cFile.exists()) {
             config.createConfig("config.yml", "onlineMode: true\nAuthType: mysql\n"+
-                    "MysqlDbName: bungeecord\nMysqlUserName: root\nMysqlPassword: ''\n"+
+                    "MysqlDbName: bungeecord\nMysqlTable:users\nMysqlUserName: root\nMysqlPassword: ''\n"+
                     "MysqlHost: localhost\nMysqlPort: 3306\n\n#configure what fields"+
                     " to query and how.\n\nUsernameField: username\nPasswordField: password\n"+
                     "#type of encrption used\nPasswordType: ''");

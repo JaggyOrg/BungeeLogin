@@ -65,7 +65,7 @@ public class Utils {
                                       new Field("UUID", "VARCHAR", 255, "")
                                      };
                     struct = new TableStruct(fields);
-                    createTable("users", struct, "id");
+                    createTable(plugin.config.getMysqlTable(), struct, "id");
                 } catch (SQLException ex) {
                     plugin.log.warning(ex.getMessage());
                 }
@@ -77,7 +77,6 @@ public class Utils {
             try {
                 Statement stmt = connection.createStatement();
                 result = stmt.executeQuery(str);
-                stmt.close();
             } catch (SQLException ex) {
                 plugin.log.warning(ex.getMessage());
             }

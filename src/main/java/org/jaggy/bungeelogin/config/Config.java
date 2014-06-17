@@ -190,4 +190,9 @@ public class Config implements YAMLConfig {
     public void loadConfig(String file) {
         lconfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
     }
+
+    public String getMysqlTable() {
+        String value = lconfig.getString("MysqlTable", "users");
+        return value;
+    }
 }
