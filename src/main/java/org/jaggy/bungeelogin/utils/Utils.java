@@ -76,7 +76,8 @@ public class Utils {
             ResultSet result = null;
             try {
                 Statement stmt = connection.createStatement();
-                result = stmt.executeQuery(str);
+                stmt.execute(str);
+                result = stmt.getResultSet();
             } catch (SQLException ex) {
                 plugin.log.warning(ex.getMessage());
             }
