@@ -87,4 +87,9 @@ public interface YAMLConfig {
      * @return PasswordType
      */
     public String getAuthURL();
+    /**
+     * Gets the mail send from info from config.yml
+     * @return 
+     */
+    public String getMailFrom();
 }

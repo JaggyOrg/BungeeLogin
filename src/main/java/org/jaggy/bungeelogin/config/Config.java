@@ -195,4 +195,10 @@ public class Config implements YAMLConfig {
         String value = lconfig.getString("MysqlTable", "users");
         return value;
     }
+
+    @Override
+    public String getMailFrom() {
+        String value = lconfig.getString("MailFrom", "no-reply@someemailservice.com");
+        return value;
+    }
 }
