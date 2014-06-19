@@ -49,7 +49,9 @@ public class BungeeLogin extends Plugin {
                     "MysqlHost: localhost\nMysqlPort: 3306\n\n#configure what fields"+
                     " to query and how.\n\nUsernameField: username\nPasswordField: password\n"+
                     "#type of encrption used\nPasswordType: ''\n\n#Email Settings: Recomended to change these!"+
-                    "MailFrom: no-reply@someemailservice.com");
+                    "MailFrom: no-reply@someemailservice.com\nMailServer: localhost\nMailUsername: ''\n"+
+                    "MailPassword: ''");
+            
             config.loadConfig();
         }
         utils.DB.connect();

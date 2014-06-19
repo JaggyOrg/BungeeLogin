@@ -52,6 +52,9 @@ class cmdRegister extends Command {
                                         player.sendMessage(component);
                                     }
                                 }
+                                
+                                plugin.utils.Email.send(args[1], plugin.getProxy().getName()+" - E-mail verification", "Thank you for registering!"+
+                                        " To verify your email type in or copy and paste in this command while on our service: /verify "+p.getUniqueId().toString());
                             } else {
                                 plugin.sendError(p, "This username is already registered! If you forgot your password do /forgotpassword and we will send you an e-mail with a new password.");
                             }

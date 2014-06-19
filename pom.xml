@@ -57,11 +57,16 @@
       <version>1.7-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
-    
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>mailapi</artifactId>
+      <version>1.5.2</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
   <repositories>
     <repository>
-        <id>bungeecord</id>
+        <id>bungeecord-api</id>
         <name>BungeeCord API</name>
         <snapshots>
             <enabled>true</enabled>

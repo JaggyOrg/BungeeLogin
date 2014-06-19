@@ -10,6 +10,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jaggy.bungeelogin.BungeeLogin;
 
@@ -22,9 +31,32 @@ public class Utils {
     public final BungeeLogin plugin;
     public Messages Messages = new Messages();
     public Database DB = new Database();
+    public Email Email = new Email();
 
     public Utils(BungeeLogin lplugin) {
         plugin = lplugin;
+    }
+
+    public class Email {
+        public void send(String to, String subject, String message) {
+            try {
+                Properties properties = new Properties();
+                properties.put("mail.smtp.host", plugin.config.getMailServer());
+                Session emailSession = Session.getDefaultInstance(properties);
+                
+                Message emailMessage = new MimeMessage(emailSession);
+                emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                emailMessage.setFrom(new InternetAddress(plugin.config.getMailFrom()));
+                emailMessage.setSubject(subject);
+                emailMessage.setText(message);
+                
+                emailSession.setDebug(true);
+                
+                Transport.send(emailMessage);
+            } catch (MessagingException ex) {
+                plugin.log.log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public class Messages {

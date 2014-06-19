@@ -201,4 +201,19 @@ public class Config implements YAMLConfig {
         String value = lconfig.getString("MailFrom", "no-reply@someemailservice.com");
         return value;
     }
+    @Override
+    public String getMailServer() {
+        String value = lconfig.getString("MailServer", "localhost");
+        return value;
+    }
+    @Override
+    public String getMailUsername() {
+        String value = lconfig.getString("MailUsername", "");
+        return value;
+    }
+    @Override
+    public String getMailPassword() {
+        String value = lconfig.getString("MailPassword", "");
+        return value;
+    }
 }

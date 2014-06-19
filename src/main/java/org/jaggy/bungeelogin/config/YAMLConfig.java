@@ -92,4 +92,19 @@ public interface YAMLConfig {
      * @return 
      */
     public String getMailFrom();
+    /**
+     * Gets the mail server to send from in the config.yml
+     * @return 
+     */
+    public String getMailServer();
+    /**
+     * Gets the mail Usernane from config.yml
+     * @return 
+     */
+    public String getMailUsername();
+    /**
+     * Gets the mail password from config.yml
+     * @return 
+     */
+    public String getMailPassword();
 }
