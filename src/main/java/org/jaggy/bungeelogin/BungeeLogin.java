@@ -5,14 +5,8 @@
  */
 
 package org.jaggy.bungeelogin;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.CharBuffer;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jaggy.bungeelogin.events.PlayerChat;

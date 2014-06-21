@@ -19,6 +19,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+
+
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jaggy.bungeelogin.BungeeLogin;
 
@@ -39,22 +42,21 @@ public class Utils {
 
     public class Email {
         public void send(String to, String subject, String message) {
-            try {
+            try {           
                 Properties properties = new Properties();
-                properties.put("mail.smtp.host", plugin.config.getMailServer());
+                String server = plugin.config.getMailServer();
+                String from = plugin.config.getMailFrom();
+                properties.put("mail.smtp.host", server);
                 Session emailSession = Session.getDefaultInstance(properties);
-                
                 Message emailMessage = new MimeMessage(emailSession);
                 emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                emailMessage.setFrom(new InternetAddress(plugin.config.getMailFrom()));
+                emailMessage.setFrom(new InternetAddress(from));
                 emailMessage.setSubject(subject);
                 emailMessage.setText(message);
-                
                 emailSession.setDebug(true);
-                
                 Transport.send(emailMessage);
             } catch (MessagingException ex) {
-                plugin.log.log(Level.SEVERE, null, ex);
+                Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
