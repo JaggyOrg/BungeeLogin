@@ -1,7 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2014 JaggyOrg.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.jaggy.bungeelogin.utils;
 
@@ -13,12 +23,6 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 
 
@@ -46,8 +50,19 @@ public class Utils {
                 Properties properties = new Properties();
                 String server = plugin.config.getMailServer();
                 String from = plugin.config.getMailFrom();
+                properties.put("mail.smtp.auth", "true");
+                properties.put("mail.smtp.socketFactory.port", "465");
+		properties.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
                 properties.put("mail.smtp.host", server);
-                Session emailSession = Session.getDefaultInstance(properties);
+                properties.put("mail.smtp.port", "465");
+                final String username = plugin.config.getMailUsername();
+                final String password = plugin.config.getMailPassword();
+                Session emailSession = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
                 Message emailMessage = new MimeMessage(emailSession);
                 emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 emailMessage.setFrom(new InternetAddress(from));
